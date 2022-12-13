@@ -20,6 +20,6 @@ docker run -d -it -p 9083:9083 \
 -e S3_ACCESS_KEY="iKdHkQmXsJWBHjl0" \
 -e S3_SECRET_KEY="BbrIP0smZL6s7itLvIxA0y6UriFBF4K3" \
 -e S3_ENDPOINT="http://172.17.0.2:9000" \
---name hive-metastore viet1846/hive-metastore
+--name hive-metastore hive-metastore
 ```
 
