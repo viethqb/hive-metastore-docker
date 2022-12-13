@@ -1,2 +1,2 @@
-# hive-metastore-docker
-hive-metastore-docker
+## Docker file for Hive Metastore 3 standalone
+
