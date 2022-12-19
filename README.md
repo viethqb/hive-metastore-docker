@@ -28,11 +28,34 @@ docker run -d -it -p 9083:9083 \
 For spark use:
 
 ```
-val spark = SparkSession
-      .builder()
-      .appName("SparkHiveTest")
-      .config("hive.metastore.uris", "thrift://localhost:9083")
-      .config("spark.sql.warehouse.dir", warehouseLocation)
-      .enableHiveSupport()
-      .getOrCreate()
+from pyspark import SparkContext
+from pyspark.sql import SparkSession
+
+spark = SparkSession \
+    .builder \
+    .appName("SparkHiveTest") \
+    .config("hive.metastore.uris", "thrift://hive-metastore:9083") \
+    .config("spark.sql.warehouse.dir", "s3a://***/warehouse/") \
+    .enableHiveSupport() \
+    .getOrCreate()
+
+
+def load_config(spark_context: SparkContext):
+    spark_context._jsc.hadoopConfiguration().set('fs.s3a.access.key', '******')
+    spark_context._jsc.hadoopConfiguration().set('fs.s3a.secret.key', '******')
+    spark_context._jsc.hadoopConfiguration().set('fs.s3a.path.style.access', 'true')
+    spark_context._jsc.hadoopConfiguration().set('fs.s3a.impl', 'org.apache.hadoop.fs.s3a.S3AFileSystem')
+    spark_context._jsc.hadoopConfiguration().set('fs.s3a.endpoint', 'https://s3.ap-southeast-1.amazonaws.com/')
+    spark_context._jsc.hadoopConfiguration().set('fs.s3a.connection.ssl.enabled', 'false')
+
+load_config(spark.sparkContext)
+
+spark.sql("show databases").show()
+
+spark.sql("create database test")
+
+spark.sql("Create table test.abc(id int)")
+
+spark.sql("show databases").show()
+spark.sql("show tables in test").show()
 ```
