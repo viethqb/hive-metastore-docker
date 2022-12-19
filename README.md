@@ -51,11 +51,10 @@ def load_config(spark_context: SparkContext):
 load_config(spark.sparkContext)
 
 spark.sql("show databases").show()
-
 spark.sql("create database test")
-
 spark.sql("Create table test.abc(id int)")
-
+spark.sql("insert into test.abc(id)values (1),(2),(3),(4)")
 spark.sql("show databases").show()
 spark.sql("show tables in test").show()
+spark.sql("select * from test.abc").show()
 ```
