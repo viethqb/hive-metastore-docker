@@ -23,3 +23,16 @@ docker run -d -it -p 9083:9083 \
 --name hive-metastore hive-metastore
 ```
 
+### 3. park
+
+For spark use:
+
+```
+val spark = SparkSession
+      .builder()
+      .appName("SparkHiveTest")
+      .config("hive.metastore.uris", "thrift://localhost:9083")
+      .config("spark.sql.warehouse.dir", warehouseLocation)
+      .enableHiveSupport()
+      .getOrCreate()
+```
