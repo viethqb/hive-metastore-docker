@@ -11,7 +11,7 @@ docker build -t hive-metastore .
 
 ```
 docker run -d -it -p 9083:9083 \
--e S3_WAREHOUSE_PATH="spark/warehouse" \
+-e S3_WAREHOUSE_PATH="*****/warehouse" \
 -e MARIADB_HOST="mysql.host" \
 -e MARIADB_PORT="3306" \
 -e MARIADB_META_DB="metastore_db" \
